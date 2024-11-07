@@ -2,129 +2,83 @@ package lr11.p2.Lists;
 import java.util.ArrayList;
 import java.util.List;
 public class arrayList {
-    public static void print () {
+    public static void print() {
         List<Long> arrayList = new ArrayList<>();
-        int i = 20;
-        addElements(arrayList, i);
-        System.out.println("Время выполнения операции добавления arrayList  в начале списка = " + addElementsFerst(arrayList, i));
-        System.out.println("Время выполнения операции добавления arrayList  в середине списка = " + insertList(arrayList, i));
-        System.out.println("Время выполнения операции добавления arrayList  в конце списка = " + addElementsLast(arrayList));
+        int elementCount = 20;
 
-        System.out.println("Время выполнения операции удаления arrayList  в начале списка = " + removeElementsFerst(arrayList));
-        System.out.println("Время выполнения операции удаления arrayList  в середине списка = " + removeInsertList(arrayList, i));
-        System.out.println("Время выполнения операции удаления arrayList  в конце списка = " + removeElementsLast(arrayList));
+        addElements(arrayList, elementCount);
 
-        System.out.println("Время выполнения операции получения элимента arrayList по индексу = " + SearchElements(arrayList, i));
+        long firstAddTime = addElementsFirst(arrayList);
+        long midInsertTime = insertElement(arrayList, elementCount);
+        long lastAddTime = addElementsLast(arrayList);
+
+        long firstRemoveTime = removeFirstElement(arrayList);
+        long midRemoveTime = removeElement(arrayList, elementCount);
+        long lastRemoveTime = removeLastElement(arrayList);
+
+        long searchTime = searchElement(arrayList, elementCount);
+
+        System.out.println("Время выполнения операции добавления arrayList  в начале списка = " + firstAddTime + " ms");
+        System.out.println("Время выполнения операции добавления arrayList  в середине списка = " + midInsertTime + " ms");
+        System.out.println("Время выполнения операции добавления arrayList  в конце списка = " + lastAddTime + " ms");
+
+        System.out.println("Время выполнения операции удаления arrayList  в начале списка = " + firstRemoveTime + " ms");
+        System.out.println("Время выполнения операции удаления arrayList  в середине списка = " + midRemoveTime + " ms");
+        System.out.println("Время выполнения операции удаления arrayList  в конце списка = " + lastRemoveTime + " ms");
+
+        System.out.println("Время выполнения операции получения элемента arrayList по индексу = " + searchTime + " ms");
     }
 
-    private static void addElements(List<Long> list, int i) {
-
-        for (long k = 0; k < i * 1_000_000_0L; k++) {
+    private static void addElements(List<Long> list, int count) {
+        for (long k = 0; k < count * 1_000_000L; k++) {
             list.add(k);
         }
-
     }
-    private static long addElementsFerst(List<Long> list, int i) {
 
-
+    private static long addElementsFirst(List<Long> list) {
         long start = System.currentTimeMillis();
-
         list.add(0, 30L);
-
-
-        long end = System.currentTimeMillis();
-
-
-        return end - start;
-
+        return System.currentTimeMillis() - start;
     }
 
-    private static long insertList (List<Long> list, int i) {
-
+    private static long insertElement(List<Long> list, int index) {
         long start = System.currentTimeMillis();
-
-
-        list.add(i, 234L);
-
-        long end = System.currentTimeMillis();
-
-
-        return end - start;
-
+        list.add(index, 234L);
+        return System.currentTimeMillis() - start;
     }
 
-    private static long addElementsLast (List<Long> list) {
-
+    private static long addElementsLast(List<Long> list) {
         long start = System.currentTimeMillis();
-
-
-
-        for (long i = 0; i < 1_000_0; i++ ){
-            list.add(list.size()-1, i);
+        for (long i = 0; i < 1_000_0; i++) {
+            list.add(i);
         }
-
-        long end = System.currentTimeMillis();
-
-
-        return end - start;
-
+        return System.currentTimeMillis() - start;
     }
 
-    private static long removeElementsFerst(List<Long> list) {
-
+    private static long removeFirstElement(List<Long> list) {
         long start = System.currentTimeMillis();
-
         list.remove(0);
-
-
-        long end = System.currentTimeMillis();
-
-
-        return end - start;
-
+        return System.currentTimeMillis() - start;
     }
 
-    private static long removeInsertList (List<Long> list, int i) {
-
+    private static long removeElement(List<Long> list, int index) {
         long start = System.currentTimeMillis();
-
-
-        list.remove(i);
-
-        long end = System.currentTimeMillis();
-
-
-        return end - start;
-
+        list.remove(index);
+        return System.currentTimeMillis() - start;
     }
 
-    private static long removeElementsLast (List<Long> list) {
-
+    private static long removeLastElement(List<Long> list) {
         long start = System.currentTimeMillis();
-
-
-        for (long i = 0; i < 1_000_0; i++ ){
-            list.remove(list.size()-1);
+        for (long i = 0; i < 1_000_0; i++) {
+            list.remove(list.size() - 1);
         }
-        long end = System.currentTimeMillis();
-
-        return end - start;
-
+        return System.currentTimeMillis() - start;
     }
 
-    private static long SearchElements (List<Long> list, int i) {
-
+    private static long searchElement(List<Long> list, int index) {
         long start = System.currentTimeMillis();
-
-
-        System.out.println( list.get(i));
-        System.out.println(list.size());
-
-        long end = System.currentTimeMillis();
-
-
-        return end - start;
-
+        Long element = list.get(index);
+        System.out.println("Элемент по индексу " + index + ": " + element);
+        return System.currentTimeMillis() - start;
     }
 }
-
